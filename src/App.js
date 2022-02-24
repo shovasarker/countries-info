@@ -1,5 +1,16 @@
+import { Routes, Route } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import Header from './components/Header'
+
 function App() {
-  return <h1 className='text-center'>Hello</h1>
+  return (
+    <>
+      <Header />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+      </Routes>
+    </>
+  )
 }
 
 export default App
