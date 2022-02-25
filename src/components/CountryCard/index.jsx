@@ -1,7 +1,7 @@
 import React from 'react'
 
 const CountryCard = ({ name, capital, flags }) => {
-  console.log(name, capital, flags)
+  // console.log(name, capital, flags)
   return (
     <div className='card relative overflow-hidden rounded-md shadow-xl h-32 bg-white cursor-pointer'>
       <img

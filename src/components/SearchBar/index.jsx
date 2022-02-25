@@ -1,13 +1,24 @@
 import React, { useState } from 'react'
 
-const SearchBar = ({ countries, setFilteredCountries }) => {
+const SearchBar = ({ countries, filterBy, setFilteredCountries }) => {
   const [searchName, setSearchName] = useState('')
   const filterCountries = () => {
-    const filtered = countries.filter(
-      ({ name }) =>
-        name.common.toLowerCase().startsWith(searchName.toLowerCase()) ||
-        name.common.toLowerCase().includes(searchName.toLowerCase())
-    )
+    const filtered = countries.filter((country) => {
+      if (filterBy.includes('name')) {
+        return (
+          country.name.common
+            ?.toLowerCase()
+            ?.startsWith(searchName.toLowerCase()) ||
+          country.name?.common
+            ?.toLowerCase()
+            ?.includes(searchName.toLowerCase())
+        )
+      } else {
+        return country[filterBy]
+          ?.toLowerCase()
+          ?.includes(searchName.toLowerCase())
+      }
+    })
     setFilteredCountries(filtered)
   }
   const handleSubmit = (e) => {
@@ -21,7 +32,7 @@ const SearchBar = ({ countries, setFilteredCountries }) => {
           className='p-2 flex-grow bg-slate-50 focus:outline-none'
           type='text'
           value={searchName}
-          placeholder='Enter a Country Name'
+          placeholder={`Enter a Country ${filterBy}`}
           onChange={(e) => {
             setSearchName(e.target.value)
             filterCountries()
