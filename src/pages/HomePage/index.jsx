@@ -8,13 +8,13 @@ import Spinner from '../../components/Spinner'
 import { SUB_FILTER_DATA } from '../../data'
 
 const HomePage = () => {
-  const [subFilterData, setSubfilterData] = useState(SUB_FILTER_DATA)
+  const [subFilterData, setSubfilterData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [countries, setCountries] = useState([])
   const [filteredCountries, setFilteredCountries] = useState([])
   const [sortedCountries, setSortedCountries] = useState([])
   const [sortBy, setSortBy] = useState('name')
-  const [filterBy, setFilterBy] = useState('region')
+  const [filterBy, setFilterBy] = useState('all')
   const [selectedSubfilter, setSelectedSubfilter] = useState(
     subFilterData[filterBy]
   )
@@ -22,6 +22,10 @@ const HomePage = () => {
     selectedSubfilter && selectedSubfilter[0]
   )
   const [pageNumber, setPageNumber] = useState(0)
+
+  useEffect(() => {
+    setSubfilterData(SUB_FILTER_DATA)
+  }, [])
 
   useEffect(() => {
     setSelectedSubfilter(subFilterData[filterBy])
