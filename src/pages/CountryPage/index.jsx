@@ -8,10 +8,13 @@ import Spinner from '../../components/Spinner'
 const CountryPage = () => {
   const { countryName } = useParams()
   const [country, setCountry] = useState([])
+  const [isLoading, setLoading] = useState(false)
   useEffect(() => {
     const getCountryDetails = async () => {
+      setLoading(true)
       const country = await fetchCountriesInfo('name', countryName)
       setCountry(country)
+      setLoading(false)
     }
     getCountryDetails()
   }, [countryName])
@@ -19,7 +22,7 @@ const CountryPage = () => {
   return (
     <div className='container px-6 md:px-10 lg:px-16 xl:px-20 my-5 space-y-5'>
       <BreadCrumb countryName={countryName} />
-      {country ? (
+      {!isLoading ? (
         country?.map((item, i) => {
           return <SingleCountry country={item} key={i} />
         })
