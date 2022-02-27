@@ -1,9 +1,13 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const CountryCard = ({ name, capital, flags }) => {
   // console.log(name, capital, flags)
   return (
-    <div className='card relative overflow-hidden rounded-md shadow-xl h-32 bg-white cursor-pointer'>
+    <motion.div
+      layout
+      className='card relative overflow-hidden rounded-md shadow-xl h-20 md:h-28 xl:h-28 bg-white cursor-pointer'
+    >
       <img
         src={flags.svg}
         alt={`${name.common}'s Flag`}
@@ -13,7 +17,7 @@ const CountryCard = ({ name, capital, flags }) => {
         <h1 className='text-xl font-bold'>{name && name.common}</h1>
         <h3 className='text-base font-medium'>{capital && capital[0]}</h3>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

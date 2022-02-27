@@ -8,9 +8,10 @@ import SortAndFilter from '../../components/SortAndFilter'
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [countries, setCountries] = useState([])
+  const [filteredCountries, setFilteredCountries] = useState([])
+  const [sortedCountries, setSortedCountries] = useState([])
   const [sortBy, setSortBy] = useState('name')
   const [filterBy, setFilterBy] = useState('name')
-  const [filteredCountries, setFilteredCountries] = useState([])
   const [pageNumber, setPageNumber] = useState(0)
 
   useEffect(() => {
@@ -29,22 +30,21 @@ const HomePage = () => {
   //There is a small bug in the sort function
   useEffect(() => {
     if (isLoading) return
-    const sortedcountries = filteredCountries
     console.log('Sort By: ', sortBy)
-    console.log('Before Sort: ', sortedcountries)
+    console.log('Before Sort: ', filteredCountries)
     if (sortBy.includes('name')) {
-      sortedcountries.sort((country1, country2) => {
+      filteredCountries.sort((country1, country2) => {
         if (country1.name.common > country2.name.common) return 1
         if (country1.name.common < country2.name.common) return -1
         return 0
       })
     } else {
-      sortedcountries.sort(
+      filteredCountries.sort(
         (country1, country2) => country2[sortBy] - country1[sortBy]
       )
     }
-    console.log('After Sort: ', sortedcountries)
-    setFilteredCountries(sortedcountries)
+    console.log('After Sort: ', filteredCountries)
+    setSortedCountries([...filteredCountries])
   }, [sortBy, filteredCountries, isLoading])
 
   return (
@@ -63,12 +63,12 @@ const HomePage = () => {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <MainSection countries={filteredCountries} pageNumber={pageNumber} />
+        <MainSection countries={sortedCountries} pageNumber={pageNumber} />
       )}
       <Pagination
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
-        totalItems={filteredCountries.length}
+        totalItems={sortedCountries.length}
       />
     </section>
   )
