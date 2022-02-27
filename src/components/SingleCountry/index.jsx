@@ -7,9 +7,13 @@ const SingleCountry = ({ country }) => {
   useEffect(() => {
     const getBordersName = async () => {
       const bordersName = country?.borders?.map(async (border) => {
-        const result = await fetchCountriesInfo('alpha', border)
-        const { name } = result[0]
-        return name.common
+        try {
+          const result = await fetchCountriesInfo('alpha', border)
+          const { name } = result[0]
+          return name.common
+        } catch (error) {
+          console.log(error.message)
+        }
       })
       const names = bordersName ? await Promise.all(bordersName) : []
       setBordersName(names)

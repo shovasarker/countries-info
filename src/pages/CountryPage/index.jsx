@@ -11,10 +11,15 @@ const CountryPage = () => {
   const [isLoading, setLoading] = useState(false)
   useEffect(() => {
     const getCountryDetails = async () => {
-      setLoading(true)
-      const country = await fetchCountriesInfo('name', countryName)
-      setCountry(country)
-      setLoading(false)
+      try {
+        setLoading(true)
+        const country = await fetchCountriesInfo('name', countryName)
+        setCountry(country)
+        setLoading(false)
+      } catch (error) {
+        setLoading(false)
+        console.log(error.message)
+      }
     }
     getCountryDetails()
   }, [countryName])

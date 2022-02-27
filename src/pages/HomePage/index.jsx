@@ -35,10 +35,15 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
-      const countries = await fetchCountriesInfo(filterBy, subfilterBy)
-      setIsLoading(false)
-      setCountries(countries)
-      setFilteredCountries(countries)
+      try {
+        const countries = await fetchCountriesInfo(filterBy, subfilterBy)
+        setIsLoading(false)
+        setCountries(countries)
+        setFilteredCountries(countries)
+      } catch (error) {
+        setIsLoading(false)
+        console.log(error.message)
+      }
     }
     fetchData()
   }, [filterBy, subfilterBy])

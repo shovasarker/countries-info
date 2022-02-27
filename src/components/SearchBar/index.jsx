@@ -16,9 +16,9 @@ const SearchBar = ({ countries, setFilteredCountries }) => {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <div className='w-full md:w-4/5 lg:w-3/5 xl:w-2/4 flex items-center rounded-sm overflow-hidden bg-white mb-12 mx-auto'>
+      <div className='w-full md:w-4/5 lg:w-3/5 xl:w-2/4 flex items-center rounded-md overflow-hidden bg-white mb-12 mx-auto'>
         <input
-          className='p-2 flex-grow bg-slate-100 focus:outline-none'
+          className='py-2 px-3 flex-grow bg-green-100 focus:outline-none'
           type='text'
           value={searchName}
           placeholder={`Enter a Country name`}
@@ -29,7 +29,7 @@ const SearchBar = ({ countries, setFilteredCountries }) => {
         />
         <button
           type='submit'
-          className='py-2 px-3 bg-slate-400 text-white font-bold'
+          className='py-2 px-3 md:px-4 bg-green-400 text-white font-bold hover:opacity-70'
         >
           Search
         </button>
