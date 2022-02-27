@@ -6,6 +6,7 @@ module.exports = {
         center: true,
       },
       spacing: {
+        '50p': '50%',
         '100p': '100%',
       },
     },

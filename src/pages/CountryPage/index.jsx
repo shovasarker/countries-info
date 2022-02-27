@@ -25,7 +25,11 @@ const CountryPage = () => {
   }, [countryName])
 
   return (
-    <div className='container px-6 md:px-10 lg:px-16 xl:px-20 my-5 space-y-5'>
+    <div
+      className={`${
+        isLoading ? 'h-52 flex flex-col items-between justify-between' : ''
+      } container px-6 md:px-10 lg:px-16 xl:px-20 my-5 space-y-5`}
+    >
       <BreadCrumb countryName={countryName} />
       {!isLoading ? (
         country?.map((item, i) => {
