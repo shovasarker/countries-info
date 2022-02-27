@@ -1,12 +1,15 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const CountryCard = ({ name, capital, flags }) => {
   // console.log(name, capital, flags)
+  const navigate = useNavigate()
   return (
     <motion.div
       layout
       className='card relative overflow-hidden rounded-md shadow-xl h-20 md:h-28 xl:h-28 bg-white cursor-pointer'
+      onClick={() => navigate(`/${name.common}`)}
     >
       <img
         src={flags.svg}

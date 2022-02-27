@@ -1,21 +1,29 @@
 import React from 'react'
 
-const SortAndFilter = ({ sortBy, setSortBy, filterBy, setFilterBy }) => {
+const SortAndFilter = ({
+  sortBy,
+  setSortBy,
+  filterBy,
+  setFilterBy,
+  selectedSubfilter,
+  subfilterBy,
+  setSubfilterBy,
+}) => {
   return (
-    <div className='flex justify-start items-center gap-5 mb-12'>
-      <div>
-        <label htmlFor='filter' className='mr-3'>
+    <div className='flex justify-start items-center flex-wrap gap-5 mb-12'>
+      <div className='flex items-center justify-start gap-3'>
+        <label htmlFor='filter' className='font-bold'>
           Filter By:
         </label>
         <select
-          className='focus:outline-none bg-white cursor-pointer'
+          className='focus:outline-none bg-transparent cursor-pointer'
           name='filter-type'
           id='filter'
           value={filterBy}
           onChange={(e) => setFilterBy(e.target.value)}
         >
           {[
-            ['Name', 'name'],
+            ['All', 'all'],
             ['Region', 'region'],
             ['Subregion', 'subregion'],
           ].map(([item, value], i) => {
@@ -27,12 +35,29 @@ const SortAndFilter = ({ sortBy, setSortBy, filterBy, setFilterBy }) => {
           })}
         </select>
       </div>
-      <div>
-        <label htmlFor='sort' className='mr-3'>
+      {filterBy !== 'all' ? (
+        <select
+          className='focus:outline-none bg-transparent cursor-pointer'
+          name='filter-type'
+          id='filter'
+          value={subfilterBy}
+          onChange={(e) => setSubfilterBy(e.target.value)}
+        >
+          {selectedSubfilter?.map((item, i) => {
+            return (
+              <option key={i} value={item}>
+                {item}
+              </option>
+            )
+          })}
+        </select>
+      ) : null}
+      <div className='flex items-center justify-start gap-3'>
+        <label htmlFor='sort' className='font-bold'>
           Sort By:
         </label>
         <select
-          className='focus:outline-none bg-white cursor-pointer'
+          className='focus:outline-none bg-transparent cursor-pointer'
           name='sort-type'
           id='sort'
           value={sortBy}
