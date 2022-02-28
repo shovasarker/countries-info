@@ -8,7 +8,7 @@ const Pagination = ({ pageNumber, setPageNumber, totalItems }) => {
           className='px-3 py-1 rounded-md shadow-xl bg-white border border-green-500 hover:bg-green-500 hover:text-white transition-colors'
           onClick={() => setPageNumber(pageNumber - 1)}
         >
-          prev
+          Prev
         </button>
       ) : null}
       {pageNumber > totalItems / 20 - 1 ? null : (
@@ -16,7 +16,7 @@ const Pagination = ({ pageNumber, setPageNumber, totalItems }) => {
           className='px-3 py-1 rounded-md shadow-xl bg-white border border-green-500 hover:bg-green-500 hover:text-white transition-colors'
           onClick={() => setPageNumber(pageNumber + 1)}
         >
-          next
+          Next
         </button>
       )}
     </div>

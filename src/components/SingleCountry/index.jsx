@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchCountriesInfo } from '../../api'
+import FlexContainer from '../FlexContainer'
+import ShowSingleData from '../ShowSingleData'
 
 const SingleCountry = ({ country }) => {
   const [bordersName, setBordersName] = useState([])
+  const [viewAll, setViewAll] = useState(false)
+
+  const handleClick = () => {
+    setViewAll(!viewAll)
+  }
+
   useEffect(() => {
     const getBordersName = async () => {
       const bordersName = country?.borders?.map(async (border) => {
@@ -53,54 +61,43 @@ const SingleCountry = ({ country }) => {
         {/* common name */}
         <h1 className='text-4xl font-bold mb-10'>{name?.common}</h1>
         {/* official name */}
-        <h2 className='text-xl font-normal'>
-          Official Name:{' '}
-          <span className='font-bold ml-1.5'>{name?.official}</span>
-        </h2>
+        <ShowSingleData title={'Official Name'} value={name?.official} />
         {/* alternate name */}
-        <div className='flex justify-start items-center flex-wrap text-xl'>
-          <h2 className=' font-normal mr-3'>Alternate Names: </h2>
-          {altSpellings?.length > 0 &&
-            altSpellings?.map((item, i) => {
-              return (
-                <span
-                  key={i}
-                  className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2'
-                >
-                  {item}
-                </span>
-              )
-            })}
-        </div>
+        {viewAll ? (
+          <FlexContainer title={'Alternate Names'}>
+            {altSpellings?.length > 0 &&
+              altSpellings?.map((item, i) => {
+                return (
+                  <span
+                    key={i}
+                    className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2'
+                  >
+                    {item}
+                  </span>
+                )
+              })}
+          </FlexContainer>
+        ) : null}
+
         {/* independence */}
-        <p className='text-xl font-normal'>
-          Independent:{' '}
-          <span className='font-bold ml-1.5 capitalize'>
-            {JSON.stringify(independent)}
-          </span>
-        </p>
+        <ShowSingleData
+          title={'Independent'}
+          value={JSON.stringify(independent)}
+        />
         {/* capital */}
-        <p className='text-xl font-normal'>
-          Capital:{' '}
-          <span className='font-bold ml-1.5'>{capital && capital[0]}</span>
-        </p>
+        <ShowSingleData title={'Capital'} value={capital && capital[0]} />
         {/* area */}
-        <p className='text-xl font-normal'>
-          Area:{' '}
-          <span className='font-bold ml-1.5'>
-            {area?.toLocaleString('en')} sq km
-          </span>
-        </p>
+        <ShowSingleData
+          title={'Area'}
+          value={`${area?.toLocaleString('en')} Km²`}
+        />
         {/* population */}
-        <p className='text-xl font-normal'>
-          Population:{' '}
-          <span className='font-bold ml-1.5'>
-            {population?.toLocaleString('en')}
-          </span>
-        </p>
-        {/* languages */}
-        <div className='flex justify-start items-center flex-wrap text-xl'>
-          <h2 className=' font-normal mr-3'>Currency: </h2>
+        <ShowSingleData
+          title={'Population'}
+          value={population?.toLocaleString('en')}
+        />
+        {/* currencies */}
+        <FlexContainer title={'Currency'}>
           {currencies &&
             Object.keys(currencies)?.map((key, i) => {
               return (
@@ -112,10 +109,9 @@ const SingleCountry = ({ country }) => {
                 </span>
               )
             })}
-        </div>
+        </FlexContainer>
         {/* languages */}
-        <div className='flex justify-start items-center flex-wrap text-xl'>
-          <h2 className=' font-normal mr-3'>Languages: </h2>
+        <FlexContainer title={'Languages'}>
           {languages &&
             Object.keys(languages)?.map((key, i) => {
               return (
@@ -127,83 +123,81 @@ const SingleCountry = ({ country }) => {
                 </span>
               )
             })}
-        </div>
-        {/* maps */}
-        <div className='flex justify-start items-center flex-wrap text-xl'>
-          <h2 className=' font-normal mr-3'>Maps: </h2>
-          {maps &&
-            Object.keys(maps)?.map((key, i) => {
-              return (
-                <a
-                  className='mr-2 underline underline-offset-1 hover:opacity-70 transition-opacity font-bold after:content-[","] last-of-type:after:content-[""]'
-                  target='_blank'
-                  rel='noreferrer'
-                  href={maps[key]}
-                  key={i}
-                >
-                  {key?.toUpperCase()}
-                </a>
-              )
-            })}
-        </div>
-        {/* borders */}
-        <div className='flex justify-start items-center flex-wrap text-xl'>
-          <h2 className=' font-normal mr-3'>Borders With: </h2>
-          {bordersName &&
-            bordersName?.map((item, i) => {
-              return (
-                <Link
-                  key={i}
-                  to={`/${item}`}
-                  className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2 underline underline-offset-1 hover:opacity-70 transition-opacity'
-                >
-                  {item}
-                </Link>
-              )
-            })}
-        </div>
+        </FlexContainer>
+        {viewAll ? (
+          <>
+            {/* maps */}
+            <FlexContainer title={'Maps'}>
+              {maps &&
+                Object.keys(maps)?.map((key, i) => {
+                  return (
+                    <a
+                      className='mr-2 underline underline-offset-1 hover:opacity-70 transition-opacity font-bold after:content-[","] last-of-type:after:content-[""]'
+                      target='_blank'
+                      rel='noreferrer'
+                      href={maps[key]}
+                      key={i}
+                    >
+                      {key?.toUpperCase()}
+                    </a>
+                  )
+                })}
+            </FlexContainer>
+            {/* borders */}
+            <FlexContainer title={'Borders With'}>
+              {bordersName &&
+                bordersName?.map((item, i) => {
+                  return (
+                    <Link
+                      key={i}
+                      to={`/${item}`}
+                      className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2 underline underline-offset-1 hover:opacity-70 transition-opacity'
+                    >
+                      {item}
+                    </Link>
+                  )
+                })}
+            </FlexContainer>
+          </>
+        ) : null}
+
         {/* continent */}
-        <p className='text-xl font-normal'>
-          Continent:{' '}
-          <span className='font-bold ml-1.5'>
-            {continents && continents[0]}
-          </span>
-        </p>
-        {/* region */}
-        <p className='text-xl font-normal'>
-          Region: <span className='font-bold ml-1.5'>{region && region}</span>
-        </p>
-        {/* subregion */}
-        <p className='text-xl font-normal'>
-          Sub-region:{' '}
-          <span className='font-bold ml-1.5'>{subregion && subregion}</span>
-        </p>
-        {/* status */}
-        <p className='text-xl font-normal'>
-          Status:{' '}
-          <span className='font-bold ml-1.5 capitalize'>
-            {status && status}
-          </span>
-        </p>
-        {/* un member */}
-        <p className='text-xl font-normal'>
-          Un Member:{' '}
-          <span className='font-bold ml-1.5 capitalize'>
-            {JSON.stringify(unMember)}
-          </span>
-        </p>
-        {/* start of week */}
-        <p className='text-xl font-normal'>
-          Start of week:{' '}
-          <span className='font-bold ml-1.5 capitalize'>
-            {startOfWeek && startOfWeek}
-          </span>
-        </p>
+        <ShowSingleData
+          title={'Continent'}
+          value={continents && continents[0]}
+        />
+        {viewAll ? (
+          <>
+            {/* region */}
+            <ShowSingleData title={'Region'} value={region && region} />
+            {/* subregion */}
+            <ShowSingleData
+              title={'Sub-region'}
+              value={subregion && subregion}
+            />
+            {/* status */}
+            <ShowSingleData title={'Status'} value={status && status} />
+            {/* un member */}
+            <ShowSingleData
+              title={'Un Member'}
+              value={JSON.stringify(unMember)}
+            />
+            {/* start of week */}
+            <ShowSingleData
+              title={'Start of week'}
+              value={startOfWeek && startOfWeek}
+            />
+          </>
+        ) : null}
+
         {/* timezone */}
-        <p className='text-xl font-normal'>
-          Time Zone:{' '}
-          <span className='font-bold ml-1.5'>{timezones && timezones[0]}</span>
-        </p>
+        <ShowSingleData title={'Time Zone'} value={timezones && timezones[0]} />
+        <button
+          className='w-full md:w-2/5 !mt-12 py-2 text-lg font-bold text-green-500 border border-green-500 rounded-md bg-transparent hover:bg-green-500 hover:text-green-50 transition-colors duration-300'
+          onClick={handleClick}
+        >
+          {viewAll ? 'View Less' : 'View More'}
+        </button>
       </div>
     </div>
   )
