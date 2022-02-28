@@ -24,6 +24,7 @@ const SingleCountry = ({ country }) => {
     altSpellings,
     area,
     capital,
+    currencies,
     continents,
     region,
     subregion,
@@ -97,6 +98,21 @@ const SingleCountry = ({ country }) => {
             {population?.toLocaleString('en')}
           </span>
         </p>
+        {/* languages */}
+        <div className='flex justify-start items-center flex-wrap text-xl'>
+          <h2 className=' font-normal mr-3'>Currency: </h2>
+          {currencies &&
+            Object.keys(currencies)?.map((key, i) => {
+              return (
+                <span
+                  key={i}
+                  className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2'
+                >
+                  {currencies[key]?.name}({currencies[key]?.symbol})
+                </span>
+              )
+            })}
+        </div>
         {/* languages */}
         <div className='flex justify-start items-center flex-wrap text-xl'>
           <h2 className=' font-normal mr-3'>Languages: </h2>
