@@ -135,7 +135,7 @@ const SingleCountry = ({ country }) => {
             Object.keys(maps)?.map((key, i) => {
               return (
                 <a
-                  className='mr-2 hover:underline hover:underline-offset-1 font-bold after:content-[","] last-of-type:after:content-[""]'
+                  className='mr-2 underline underline-offset-1 hover:opacity-70 transition-opacity font-bold after:content-[","] last-of-type:after:content-[""]'
                   target='_blank'
                   rel='noreferrer'
                   href={maps[key]}
@@ -155,7 +155,7 @@ const SingleCountry = ({ country }) => {
                 <Link
                   key={i}
                   to={`/${item}`}
-                  className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2 hover:underline hover:underline-offset-1'
+                  className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2 underline underline-offset-1 hover:opacity-70 transition-opacity'
                 >
                   {item}
                 </Link>
