@@ -64,26 +64,28 @@ const SingleCountry = ({ country }) => {
         <ShowSingleData title={'Official Name'} value={name?.official} />
         {/* alternate name */}
         {viewAll ? (
-          <FlexContainer title={'Alternate Names'}>
-            {altSpellings?.length > 0 &&
-              altSpellings?.map((item, i) => {
-                return (
-                  <span
-                    key={i}
-                    className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2'
-                  >
-                    {item}
-                  </span>
-                )
-              })}
-          </FlexContainer>
+          <>
+            <FlexContainer title={'Alternate Names'}>
+              {altSpellings?.length > 0 &&
+                altSpellings?.map((item, i) => {
+                  return (
+                    <span
+                      key={i}
+                      className='after:content-[","] last-of-type:after:content-[""] font-bold mr-2'
+                    >
+                      {item}
+                    </span>
+                  )
+                })}
+            </FlexContainer>
+            {/* independence */}
+            <ShowSingleData
+              title={'Independent'}
+              value={JSON.stringify(independent)}
+            />
+          </>
         ) : null}
 
-        {/* independence */}
-        <ShowSingleData
-          title={'Independent'}
-          value={JSON.stringify(independent)}
-        />
         {/* capital */}
         <ShowSingleData title={'Capital'} value={capital && capital[0]} />
         {/* area */}
@@ -187,11 +189,14 @@ const SingleCountry = ({ country }) => {
               title={'Start of week'}
               value={startOfWeek && startOfWeek}
             />
+
+            {/* timezone */}
+            <ShowSingleData
+              title={'Time Zone'}
+              value={timezones && timezones[0]}
+            />
           </>
         ) : null}
-
-        {/* timezone */}
-        <ShowSingleData title={'Time Zone'} value={timezones && timezones[0]} />
         <button
           className='w-full md:w-2/5 !mt-12 py-2 text-lg font-bold text-green-500 border border-green-500 rounded-md bg-transparent hover:bg-green-500 hover:text-green-50 transition-colors duration-300'
           onClick={handleClick}
