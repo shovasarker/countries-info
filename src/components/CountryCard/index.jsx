@@ -35,7 +35,7 @@ const CountryCard = ({ name, capital, flags, population, area }) => {
           </h3>
         </div>
       </div>
-      <h1 className='text-xl text-center font-bold mt-2'>
+      <h1 className='text-base text-center font-bold mt-2'>
         {name && name.common}
       </h1>
     </motion.div>
