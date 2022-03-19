@@ -34,6 +34,13 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (
+        !SUB_FILTER_DATA[filterBy]?.includes(subfilterBy) &&
+        filterBy !== 'all'
+      ) {
+        console.log(filterBy, subfilterBy)
+        return
+      }
       setIsLoading(true)
       try {
         const countries = await fetchCountriesInfo(filterBy, subfilterBy)

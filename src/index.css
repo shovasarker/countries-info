@@ -4,6 +4,6 @@
 
 @layer components {
   .card:hover .card__body {
-    @apply !top-0;
+    @apply !opacity-100;
   }
 }
